@@ -1,6 +1,6 @@
 FROM httpd:alpine
-COPY index.html /usr/local/apache2/htdocs/
-ADD images /usr/local/apache2/htdocs/
+COPY ./public /usr/local/apache2/htdocs/
+
 # Rahti runs containers as an arbitrary non-root UID by default (see the box below) —
 # that UID can't bind to port 80, so move Apache to a non-privileged port instead.
 RUN sed -i 's/^Listen 80$/Listen 8080/' /usr/local/apache2/conf/httpd.conf && \
