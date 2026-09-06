@@ -8,8 +8,129 @@
 </head>
 <body>
     <section class="container">
-        <h1 class="mt-3">welcome</h1>
+        <h1 class="mt-3">Welcome to Rahti deployment</h1>
+        <p>This is a Docker container deployed on the CSC's Rahti service.</p>
+    </section>
+    <section class="container">
         
-    </section>        
+        <div class="p-3">
+            <h2>Answers</h2>
+            <div class="card mt-3 p-3 ">
+                <p class=" h5 mt-1"><strong>Explain what is serverless architecture?</strong></p>
+                <p class=" h6 ">Serverless architecture is a computing model in where a company provides a server to developers to run code without having to manage the underlying infrastructure like maintainance.</p>
+            </div>
+            <div class="card mt-3 p-3">
+                <p class=" h5 mt-1"><strong>When it is more feasible solution to use application containers (app virtualization) than full OS virtualization to provide networked services?</strong></p>
+                <p class=" h6 ">It is more appropriate to use application containers when you want to split a larger application into smaller faster and more efficient application for specific tasks. Application containers are also faster to deploy than a full Operating System virtualization because you can skip hardware emulation (and bloatware in some OS'). </p>
+            </div>
+            <div class="card mt-3 p-3">
+                <p class=" h5 mt-1"><strong>Compare application containers to microservices.</strong></p>
+                <p class=" h6 ">Containers are deployments with packaging that has application code, libraries, configs and can be run anywhere. While microservices is a software development method where you have a connected cluster/collection of application which communicate via APIs.
+                </p>
+            </div>
+            <div class="card mt-3 p-3">
+                <p class=" h5 mt-1"><strong>Describe shortly what is Kubernetes and what alternatives are there?</strong></p>
+                <p class=" h6 ">Kubernetes (K8s) is a container orchestration platform that allows developers to automate deploying, scaling, managing containers applications. Some other alternatives to K8s: Docker using Swarm mode for small to medium sized applications but is missing more advanced scaling features, Amazon Web Services ECS is Amazons own container orchestration environment which integrates AWS services to the workflow, Google Cloud Run is another alternative and need least maintainance to run containers. </p>
+            </div>
+        </div>
+    </section>     
+    <section class="container">
+        
+        <div class="p-3">
+            <h2>Step-by-step documentation on how to deploy a docker container on Rahti service</h2>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>1. Login to MyCSC</strong></p>
+                <img src="images/1.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>2. Create a project</strong></p>
+
+                <img src="images/2.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>3. Select the Rahti service</strong></p>
+
+                <img src="images/3.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>4. Agree to Terms and Conditions.</strong></p>
+
+                <img src="images/4.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>5. Note down the project number</strong></p>
+                <code class="mt-1">2020662</code>
+                <img src="images/5.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>6. After few minutes log on the Rahti console.</strong></p>
+                <code class="mt-1">https://console.rahti.csc.fi</code>
+                <img src="images/6.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>7. Create a new project in Rahti.</strong></p>
+                <img src="images/7.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>8. Fill the data remember to input the project number from MyCSC.</strong></p>
+                <code class="mt-1">csc_project: 2020662</code>
+                <img src="images/8.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>9. Project Created</strong></p>
+                <img src="images/9.png" alt="">
+            </div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>10. Make a github repo for your container</strong></p>
+
+                <img src="images/10.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>11. Make you first github push</strong></p>
+                <code class="mt-1" style="white-space: pre-wrap;">git init
+git add index.html Dockerfile
+git commit -m "Initial container setup"
+git remote add origin https://github.com/your-username/your-repo.git
+git push -u origin main</code>
+                <img src="images/11.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>12. Have your dockerfile and index.html for the container</strong></p>
+
+                <img src="images/12.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>13. Login to oc (OpenShift) on your computer</strong></p>
+                <code class="mt-1">oc login https://api.2.rahti.csc.fi:6443 --token=<your-token></code>
+                <img src="images/13.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>14. Make a new app on Rahti using oc</strong></p>
+                <code class="mt-1">oc new-app https://github.com/your-username/your-repo.git</code>
+                <img src="images/14.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>15. Create a route to the public internet</strong></p>
+                <code class="mt-1">oc create route edge your-repo-name --service=your-repo-name --insecure-policy=Redirect</code>
+                <p class="h5 mt-1">Do note that your repo name gets changed if it has uppercase letters, they are changed to a lowercase letter.</p>
+                <img src="images/15.png" alt=""></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>16. Checking the route address</strong></p>
+                <code class="mt-1">oc get route</code>
+                <img src="images/16.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>17. Scaling your app</strong></p>
+                <code class="mt-1" style="white-space: pre-wrap;">oc scale deployment/<your-repo-name> --replicas=3
+oc get pods</code>
+                <img src="images/17.png" alt=""
+                ></div>
+            <div class="card mt-3 p-3">
+                <p class="h5 mt-1"><strong>18. You have deployed you Rahti website</strong></p>
+                <code class="mt-1"><a href="https://firstcontainer-school-oamk-cloud-services.2.rahtiapp.fi/">https://firstcontainer-school-oamk-cloud-services.2.rahtiapp.fi/</a></code>
+                <img src="images/18.png" alt=""
+                ></div>
+        </div>
+    </section>    
 </body>
 </html>
